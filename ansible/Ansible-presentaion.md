@@ -143,10 +143,12 @@ ansible-galaxy를 활용한 arista EOS 모듈을 사용한 playbook으로 스위
    ansible-playbook name-test.yml
    ```
    ![image](https://github.com/NOOJU/intern-project/assets/127095828/1f29be69-06b8-4531-ae82-4f8392ba2449)
+
+   
    ![image](https://github.com/NOOJU/intern-project/assets/127095828/d36e313a-7948-4479-8384-08645cc67501)
    - 성공적으로 hostname이 바뀐 것을 확인
 
-2. 인터페이스 설정해보기
+3. 인터페이스 설정해보기
    ```
    vi /etc/ansible/interface-test.yml
    ```
@@ -169,7 +171,31 @@ ansible-galaxy를 활용한 arista EOS 모듈을 사용한 playbook으로 스위
    ansible-playbook name-test.yml
    ```
    ![image](https://github.com/NOOJU/intern-project/assets/127095828/d2a43cd7-8001-49dc-aee1-6f1277101011)
+
+   
    ![image](https://github.com/NOOJU/intern-project/assets/127095828/444dd185-ec26-427a-bc1a-884567adc453)
    - 성공적으로 interface가 설정된 것을 확인
 
 
+## 4. ansible-galaxy 사용해보
+
+1. 호스트 네임 변경해보기
+   ```
+   vi /etc/ansible/name-test.yml
+   ```
+   - playbook 생성
+   ```
+   ---
+   - name: Config to Arista Switch
+   hosts: arista_node
+   gather_facts: no
+   tasks:
+     - name: Set hostname on the switch
+       eos_config:
+         lines:
+           - hostname test
+   ```
+   - 붙여넣기<br>
+   ```
+   ansible-playbook name-test.yml
+   ```
