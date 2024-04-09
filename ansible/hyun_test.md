@@ -86,3 +86,5 @@ Ansible의 간략한 구성도<br/>
 ## IaC로써 ansible과 terraform의 차이점
 ansible과 terraform 차이점
 Terraform은 원하는 상태를 정의하여 IT 인프라의 구성을 유지하려고 하는 선언적 프로그래밍이라는 방식을 사용합니다. Ansible은 원하는 상태에 도달하는 단계를 정의하여 IT 인프라의 구성을 유지하려고 하는 절차적(또는 명령적) 프로그래밍 방식을 사용
+
+주로 Terraform에서 인프라를 구성하고 Ansible에서 인프라 환경설정을 하는 방식으로 씀
