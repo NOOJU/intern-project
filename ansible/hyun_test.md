@@ -19,11 +19,10 @@ nginx라면 '/usr/share/nginx/html' 에 있어야됨.
 거의 하루 이틀 날잡아서 될 양이 아닙니다.
 특히 요즘 Micromicro service architecture 시대에서 이런 서버양은 가설이 아니라 사실입니다.
  ```
-이것들을 자동화 시켜 사용자의 편의성을 제공해주는 소프트웨어가 존재합니다.
-Ansible, Chef, Puppet, SaltStack 이 대표적이죠.
+이것들을 자동화 시켜 사용자의 편의성을 제공해주는 소프트웨어가 존재함
+Ansible, Chef, Puppet, SaltStack 이 대표적
 
 
-저는 여기서 Ansible에 대해 좀 알아볼까 합니다.
 
 1. Ansible
 Ansible은 Python으로 만들어진 오픈소스 프로젝트입니다. 현재는 RedHat에서 인수하여 관리하고 있습니다.
