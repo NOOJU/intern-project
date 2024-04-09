@@ -1,11 +1,18 @@
 # Ansible을 활용한 스위치 실습
+<br/>
+서버에 ansible을 설치하고 스위치에서 사용가능하도록 설정합니다. 간단한 playbook 예제를 통해 스위치에 config를 해봅니다.<br/>
+ansible-galaxy를 활용한 arista EOS 모듈을 사용한 playbook으로 스위치 config 실습을 진행합니다.
 
-Spring Boot 프로젝트를 생성해 간단한 웹 페이지를 생성합니다. 생성한 프로젝트를 Docker Image 파일로 만들어 Kakao Cloud Container Registry에 업로드하는 실습을 진행합니다.
 
+## 1. ansible 서버(관리 노드)에 ansible 설치 및 설정
+* OS : Ubuntu server 22.04
 
-## 1. Container Registry 생성
+1. ansible 설치를 위한 레포지토리 등록
+   ```
+   sudo apt-add-repository --yes --update ppa:ansible/ansible
+   sudo apt install ansible -y
+   ```
 
-1. 카카오 클라우드 콘솔 > 전체 서비스 > Container Registry 접속
 2. 리포지토리 만들기 버튼 클릭
    - 공개 여부: 비공개
    - 리포지토리 이름 : `kakao-registry`
