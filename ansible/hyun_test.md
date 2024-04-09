@@ -74,6 +74,7 @@ Ansible은 SSH통신으로 각 노드들에게 접근할 수 있어서 에이전
  
 
 
+![image (5)](https://github.com/NOOJU/intern-project/assets/88716899/09fee8fe-f5f4-469d-a1b7-8ac9a60f298e)
 
 
 
