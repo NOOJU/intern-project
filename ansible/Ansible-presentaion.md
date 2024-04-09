@@ -120,45 +120,56 @@ ansible-galaxy를 활용한 arista EOS 모듈을 사용한 playbook으로 스위
    - ansible 서버의 known_hosts 파일에 스위치의 공개키 지문이 남겨져있어야 플레이북 task 실행 가능<br>
    
 
-3. 카카오 클라우드 콘솔 > 전체 서비스 > Virtual Machine 접속
-4. bastion의 Public IP 복사
-5. 브라우저 주소창에 {복사한 IP 주소}:8080 입력
-6. 이미지 실행 확인
+## 3. Playbook으로 config 설정해보기
 
-## 3. Container 레지스트리에 이미지 업로드
+1. 호스트 네임 변경해보기
+   ```
+   vi /etc/ansible/name-test.yml
+   ```
+   - playbook 생성
+   ```
+   ---
+   - name: Config to Arista Switch
+   hosts: arista_node
+   gather_facts: no
+   tasks:
+     - name: Set hostname on the switch
+       eos_config:
+         lines:
+           - hostname test
+   ```
+   - 붙여넣기<br>
+   ```
+   ansible-playbook name-test.yml
+   ```
+   ![image](https://github.com/NOOJU/intern-project/assets/127095828/1f29be69-06b8-4531-ae82-4f8392ba2449)
+   ![image](https://github.com/NOOJU/intern-project/assets/127095828/d36e313a-7948-4479-8384-08645cc67501)
+   - 성공적으로 hostname이 바뀐 것을 확인
 
-1. 도커 로그인
-   - 접속 중인 Bastion VM 인스턴스에 명령어 입력
-   #### **lab4-3-1**
+2. 인터페이스 설정해보기
    ```
-   docker login ${PROJECT_NAME}.kr-central-2.kcr.dev --username ${ACC_KEY} --password ${SEC_KEY}
+   vi /etc/ansible/interface-test.yml
    ```
-
-2. 로그인 성공 시 출력되는 `Login Succeeded` 확인
-3. 생성한 이미지 태그하기
-   #### **lab4-3-3**
+   - playbook 생성
    ```
-   docker tag ${DOCKER_IMAGE_NAME} ${PROJECT_NAME}.kr-central-2.kcr.dev/kakao-registry/${DOCKER_IMAGE_NAME}:1.0
+   ---
+   - name: Update Arista EOS Device Configuration
+     hosts: arista_node
+     gather_facts: no
+     tasks:
+       - name: create new user
+         arista.eos.eos_config:
+           lines:
+             - no switchport
+             - description playbook test
+           parents: ["interface Ethernet3"]
    ```
-
-4. 이미지 태그 확인
-   #### **lab4-3-4**
-   
+   - 붙여넣기<br>
    ```
-   docker images
+   ansible-playbook name-test.yml
    ```
-   - 현재 두 개의 이미지가 정상적으로 출력되는지 확인
-   
-5. 이미지가 정상적으로 태그되었는지 확인
-   - ex) kakao-k8s-cluster.kr-central-2.kcr.dev/kakao-registry/demo-spring-boot  1.0
-     
-6. 이미지 업로드하기
-   #### **lab4-3-6**
-   ```
-   docker push ${PROJECT_NAME}.kr-central-2.kcr.dev/kakao-registry/${DOCKER_IMAGE_NAME}:1.0
-   ```
-7. 카카오 클라우드 콘솔 > 전체 서비스 > Container Registry > Repository 접속
-8. 생성한 Repository `kakao-registry` 클릭
-9. 이미지 업로드 상태 확인
+   ![image](https://github.com/NOOJU/intern-project/assets/127095828/d2a43cd7-8001-49dc-aee1-6f1277101011)
+   ![image](https://github.com/NOOJU/intern-project/assets/127095828/444dd185-ec26-427a-bc1a-884567adc453)
+   - 성공적으로 interface가 설정된 것을 확인
 
 
