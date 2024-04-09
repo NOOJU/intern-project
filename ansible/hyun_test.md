@@ -1,7 +1,8 @@
 1. 구성도
+2. <br/>
 ![image](https://github.com/NOOJU/intern-project/assets/88716899/5e41da8e-f86f-4326-b169-285bbd6e86e8)
 
-2. ansible 설치 명령어
+3. ansible 설치 명령어
 ```bash
 apt update
 ```
