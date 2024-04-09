@@ -70,10 +70,10 @@ Ansible은 SSH통신으로 각 노드들에게 접근할 수 있어서 에이전
 - 즉, 일련의 명령어를 실행하는 기능의 집합체라고 볼 수 있습니다.
 
 7. 태스크(Task)
-- Ansible의 작업 단위
+- Ansible의 작업 단위<br/><br/>
  
 
-
+Ansible의 간략한 구성도
 ![image (5)](https://github.com/NOOJU/intern-project/assets/88716899/09fee8fe-f5f4-469d-a1b7-8ac9a60f298e)
 
 
