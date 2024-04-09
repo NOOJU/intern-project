@@ -28,7 +28,8 @@ Ansible, Chef, Puppet, SaltStack 이 대표적
 Ansible은 Python으로 만들어진 오픈소스 프로젝트이며, 현재는 RedHat에서 인수하여 관리하고 있음<br/>
 
 Ansible은 Playbook이라는 정의된 스크립트나 Ad-Hoc이라는 커맨드 명령을 통해 원격지 노드들을 관리함<br/>
-- **Note** ad-hoc 명령이란?  사전에 작성된 플레이북을 사용하지 않고, 단일 명령이나 작업을 즉시 실행할 때 사용합니다. 이 방식은 간단한 작업을 빠르게 수행하고 싶을 때 유용합니다. (ansible all -i 호스트파일 -m command -a "uptime")
+- **Note** ad-hoc 명령이란?<br/>
+  사전에 작성된 플레이북을 사용하지 않고, 단일 명령이나 작업을 즉시 실행할 때 사용합니다. 이 방식은 간단한 작업을 빠르게 수행하고 싶을 때 유용합니다. (ansible all -i 호스트파일 -m command -a "uptime")
 또한 RedHat에서 관리하고 있다는 측면에서 큰 메리트가 있는데, 버그 패치같은 것들을 신경써서 해준다는 점입니다.
 
  
