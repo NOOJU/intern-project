@@ -211,4 +211,7 @@ ansible-galaxy를 활용한 arista EOS 모듈을 사용한 playbook으로 스위
    ```
    ssh admin@10.0.1.111
    ```
+   ```
+   ssh admin@10.0.2.222
+   ```
    - 패스워드 없이 접속되는 것을 확인
