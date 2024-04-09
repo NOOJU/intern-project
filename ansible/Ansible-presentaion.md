@@ -148,7 +148,7 @@ ansible-galaxy를 활용한 arista EOS 모듈을 사용한 playbook으로 스위
    ![image](https://github.com/NOOJU/intern-project/assets/127095828/d36e313a-7948-4479-8384-08645cc67501)
    - 성공적으로 hostname이 바뀐 것을 확인
 
-3. 인터페이스 설정해보기
+2. 인터페이스 설정해보기
    ```
    vi /etc/ansible/interface-test.yml
    ```
@@ -177,25 +177,38 @@ ansible-galaxy를 활용한 arista EOS 모듈을 사용한 playbook으로 스위
    - 성공적으로 interface가 설정된 것을 확인
 
 
-## 4. ansible-galaxy 사용해보
+## 4. ansible-galaxy 사용해보기
 
-1. 호스트 네임 변경해보기
+### ansible-galaxy Arista EOS 컬렉션 주소 : https://galaxy.ansible.com/ui/repo/published/arista/eos/docs/
+#### 해당 모듈을 클릭 후, 사용 문법 및 예제 참고하여 사용
+
+1. ansible 서버의 공개키 스위치에 배포해보기
    ```
-   vi /etc/ansible/name-test.yml
+   ssh-keygen
+   ```
+   - 키 생성하기<br>
+   
+   ```
+   vi /etc/ansible/key-test.yml
    ```
    - playbook 생성
    ```
    ---
-   - name: Config to Arista Switch
-   hosts: arista_node
-   gather_facts: no
-   tasks:
-     - name: Set hostname on the switch
-       eos_config:
-         lines:
-           - hostname test
+   - name: Update Arista EOS Device Configuration
+     hosts: arista_node
+     gather_facts: no
+     tasks:
+       - name: create new user
+         arista.eos.eos_user:
+           name: admin
+           sshkey: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+           state: present
    ```
    - 붙여넣기<br>
    ```
-   ansible-playbook name-test.yml
+   ansible-playbook key-test.yml
    ```
+   ```
+   ssh admin@10.0.1.111
+   ```
+   - 패스워드 없이 접속되는 것을 확인
