@@ -19,7 +19,7 @@ nginx라면 '/usr/share/nginx/html' 에 있어야됨.
 거의 하루 이틀 날잡아서 될 양이 아닙니다.
 특히 요즘 Micromicro service architecture 시대에서 이런 서버양은 가설이 아니라 사실입니다.
  ```
-이것들을 자동화 시켜 사용자의 편의성을 제공해주는 소프트웨어가 존재함
+이것들을 자동화 시켜 사용자의 편의성을 제공해주는 소프트웨어가 존재함<br/>
 Ansible, Chef, Puppet, SaltStack 이 대표적
 
 
