@@ -75,7 +75,10 @@ Ansible은 SSH통신으로 각 노드들에게 접근할 수 있어서 에이전
 8. role
 
 9. facts
-
+- playbook 실행시 노드에 대한 정보를 수집하는 모듈(gather_facts:no 옵션 명시하면 수집안함)
+- 이렇게 수집한 정보를 변수화해서 동적인 playbook을 만들 수 있음
+- 일반적으로 /etc/ansible/facts.d/ 밑에 파일이름.fact 라는 이름으로 저장됨
+-  ansible 호스트명 -m setup을 ad-hoc 방식으로 확인해보면, facts가 수집하는 정보들을 확인할 수 있음
 <br/>
  
 
