@@ -4,7 +4,7 @@
 ansible-galaxy를 활용한 arista EOS 모듈을 사용한 playbook으로 스위치 config 실습을 진행합니다.
 
 ### 실습 구성도
-![image](https://github.com/NOOJU/intern-project/assets/127095828/d6ea7527-b552-466d-b8b5-5c1c709085e6)
+![스크린샷 2024-04-11 134531](https://github.com/NOOJU/intern-project/assets/127095828/d7b73c5b-5c0d-4f42-827d-067f56fdade2)
 
 
 ## 1. ansible 서버(관리 노드)에 ansible 설치 및 설정
