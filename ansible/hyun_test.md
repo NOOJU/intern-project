@@ -1,4 +1,4 @@
-# Ansible ![image](https://github.com/NOOJU/intern-project/assets/88716899/6656bda1-19f3-4d6c-9af4-b767134d19a9)
+![image](https://github.com/NOOJU/intern-project/assets/88716899/d3207286-3d7c-45cb-9136-db56ed2ea8c0)# Ansible ![image](https://github.com/NOOJU/intern-project/assets/88716899/6656bda1-19f3-4d6c-9af4-b767134d19a9)
 
 
 
@@ -57,6 +57,8 @@ Ansible은 SSH통신으로 각 노드들에게 접근할 수 있어서 에이전
 - 또한 이런 호스트들을 그룹으로 묶어서 관리할 수도 있음
 - 그외 전역변수를 통해서 변수 설정도 가능
 - 해당 Inventory를 가져와서 Ansible이 해당 호스트 정보를 토대로 명령어 실행을 처리
+  ![image](https://github.com/NOOJU/intern-project/assets/88716899/5614f92f-6a60-457d-96de-2ef5cb876a6e)
+
 
 4.  Playbook
 - 쉘 스크립트 같은 파일이라고 생각하면 됨
