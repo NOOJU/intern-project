@@ -116,7 +116,7 @@ ansible-galaxy를 활용한 arista EOS 모듈을 사용한 playbook으로 스위
    ssh-keyscan -t rsa 10.0.2.222 >> ~/.ssh/known_hosts
    ```
    - 스위치의 공개키를 받아와 known_hosts 파일에 저장
-   - ansible 서버의 known_hosts 파일에 스위치의 공개키 지문이 남겨져있어야 플레이북 task 실행 가능<br>
+   - ansible 서버의 known_hosts 파일에 스위치의 공개키 지문이 남겨져있어야 플레이북 task 실행 가능
    
 
 ## 3. Playbook으로 config 설정해보기
@@ -175,6 +175,97 @@ ansible-galaxy를 활용한 arista EOS 모듈을 사용한 playbook으로 스위
    ![image](https://github.com/NOOJU/intern-project/assets/127095828/444dd185-ec26-427a-bc1a-884567adc453)
    - 성공적으로 interface가 설정된 것을 확인
 
+   <br>
+
+   * 예제 playbook
+   
+   ```
+   ---
+   - name: Deploy SSH key to Arista Switch and set hostname
+     hosts: arista_node
+     gather_facts: no
+     tasks:
+       - name: Set SSH key for user admin   # 매니지드 서버에 대해서 공개키 배포
+         eos_config:
+           lines:
+             - username admin ssh-key ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCjrVojkISZIG7LIf7USSkvMGReZtc2yJO3yIcHY0rlGIQTAsl/VCdi4DknnPelgxDrO85wSing6Ws6Dn7cpzukhpQ5iv+Ydo+13odvsxpJKJczSf1rb1RdDvZKEddok3PjgK3fZ9Ed/mywc9O5kEaT19R8V1deJgncBiGr6G93qXj7AF9SUKQm1gMEP50g3Hl/omRVHQsrintcQgBSTulxdvk1zP1MmjktBHR2nsVLqgLkiGInOWzXiEl7Y5HsX+8JM+kLsxnRScebdDzB6BSEFdtgaVte56ySN9nH1VMMy1vWDltXpGamNagk1y5MtC6LQMFY/xciJchTUYKJK1jNeHBhklPXDfEsMYH3dwYs/4fY4yq+HZdDDGMY1bVAweTxcJFUbwFH3xK5o72muE0M8Trk0hklhGbq7X7NP5t0jyDTFA9CheiTa3b40B/Ctf+Uxmg2hkmYTeWjYN1r+OA04B0289K1YXvHqY9yJ0p9S1wasnMMTp3z8r+zXABiDf0= root@ubuntu22-server
+   
+       - name: Set hostname on the first switch  # 1번 스위치에 대해서 호스트 이름 변경
+         eos_config:
+           lines:
+             - hostname ahnahn1
+         when: inventory_hostname == '172.16.0.100'
+   
+       - name: Set hostname on the second switch  # 2번 스위치에 대해서 호스트 이름 변경
+         eos_config:
+           lines:
+             - hostname ahnahn2
+         when: inventory_hostname == '10.0.0.100'
+   
+       - name: Configure VLANs  # VLAN 10을 'Marketing'으로 구성
+         eos_config:
+           lines:
+             - name Marketing
+           parents: ["vlan 10"]
+         register: result
+       - debug:
+           var: result
+   
+       - name: Configure VLANs  # VLAN 20을 'Engineering'으로 구성
+         eos_config:
+           lines:
+             - name Engineering
+           parents: ["vlan 20"]
+   
+       - name: Configure VLANs  # VLAN 30을 'HR'으로 구성
+         eos_config:
+           lines:
+             - name HR
+           parents: ["vlan 30"]
+   
+       - name: Assign IP addresses to interfaces  # Ethernet2인터페이스에 10.10.10.1/24 주소 할당.인터페이스Layer 3 모드로 전환
+         eos_config:
+           lines:
+             - no switchport
+             - ip address 10.10.10.1/24
+           parents: ["interface Ethernet2"]
+   
+       - name: Assign IP addresses to interfaces # Ethernet3인터페이스에 10.20.20.1/24 주소 할당.인터페이스Layer 3 모드로 전환
+         eos_config:
+           lines:
+             - no switchport
+             - ip address 10.20.20.1/24
+           parents: ["interface Ethernet3"]
+   
+       - name: Assign IP addresses to interfaces # Ethernet4인터페이스에 10.30.30.1/24 주소 할당.인터페이스Layer 3 모드로 전환
+         eos_config:
+           lines:
+             - no switchport
+             - ip address 10.30.30.1/24
+           parents: ["interface Ethernet4"]
+   
+       - name: Configure static routes  # 기본 게이트웨이로의 정적 라우트와 192.168.100.0/24 네트워크로의 추가 정적 라우트를 구성
+         eos_config:
+           lines:
+             - ip route 0.0.0.0/0 10.0.0.1
+   
+       - name: Configure static routes
+         eos_config:
+           lines:
+             - ip route 192.168.100.0/24 10.10.10.2
+   # BGP를 활성화하고 AS 번호를 65001로 설정한 다음 이웃 10.0.0.2와의 연결을 구성하고 BGP를 통해 두 개의 네트워크를 알림
+       - name: Configure BGP 
+         eos_config:
+           lines:
+             - router bgp 65001
+             - neighbor 10.0.0.2 remote-as 65002
+             - network 10.10.10.0 mask 255.255.255.0
+             - network 10.20.20.0 mask 255.255.255.0
+           parents: ["router bgp 65001"]
+   ```
+
+
+
 
 ## 4. ansible-galaxy 사용해보기
 
@@ -214,3 +305,34 @@ ansible-galaxy를 활용한 arista EOS 모듈을 사용한 playbook으로 스위
    ssh admin@10.0.2.222
    ```
    - 패스워드 없이 접속되는 것을 확인
+
+<br>
+
+2. command 모듈 사용하여 현재 config 출력해보기
+   
+   ```
+   vi /etc/ansible/command-test.yml
+   ```
+   - playbook 생성
+   ```
+   - name: Collect routing table from Arista EOS device
+     hosts: arista_node
+     gather_facts: no
+     tasks:
+       - name: Gather routing information
+         arista.eos.eos_command:
+           commands:
+             - show running-config
+         register: running_info
+   
+       - name: Print running information
+         debug:
+           var: running_info.stdout_lines
+   ```
+   - 붙여넣기<br>
+   ```
+   ansible-playbook command-test.yml
+   ```
+   ![image](https://github.com/NOOJU/intern-project/assets/127095828/b02a30b1-c2a1-43b0-a3ee-5bb68ab34ff9)
+
+   - running-config가 출력되는 것을 확인
