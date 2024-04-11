@@ -1,4 +1,5 @@
-# Ansible
+# Ansible![Uploading image.png…]()
+
 
 ## Ansible을 써야하는 이유
 서버를 운용하다보면 예를들면 패키지 설치, 응용프로그램 설치 등 셋팅이 필요한 경우가 있음
