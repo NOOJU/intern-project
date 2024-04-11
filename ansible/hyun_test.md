@@ -106,7 +106,7 @@ Ansible의 간략한 구성도<br/>
 ![image (5)](https://github.com/NOOJU/intern-project/assets/88716899/09fee8fe-f5f4-469d-a1b7-8ac9a60f298e)
 
 <br/><br/>
-## IaC로써 ansible과 terraform의 차이점
+## IaC로써 Ansible과 Terraform의 차이점
 Ansible과 Terraform 차이점
 Terraform은 원하는 상태를 정의하여 IT 인프라의 구성을 유지하려고 하는 선언적 프로그래밍이라는 방식을 사용. Ansible은 원하는 상태에 도달하는 단계를 정의하여 IT 인프라의 구성을 유지하려고 하는 절차적(또는 명령적) 프로그래밍 방식을 사용
 
