@@ -67,6 +67,8 @@ Ansible은 SSH통신으로 각 노드들에게 접근할 수 있어서 에이전
 - 또한 모듈이라고 하는 명령어들이 정의된 하나의 모듈을 읽어와 실행해주기도 함
 - Playbook은 task라고 하는 명령어를 기반으로 사용자가 정의한 명령어가 실행됨
 - yml 파일로 저장
+  ![image](https://github.com/NOOJU/intern-project/assets/88716899/bfa007be-d1cd-494b-804a-2793897b668a)
+
 
 6. Module
 - Playbook에서 사용할 수 있는 특정 작업을 수행하기 위한 단위로, 파일 복사, 패키지 설치, 네트워크 장치 구성 등의 작업을 수행할 수 있음
