@@ -72,7 +72,9 @@ Ansible은 SSH통신으로 각 노드들에게 접근할 수 있어서 에이전
 
 6. Module
 - Playbook에서 사용할 수 있는 특정 작업을 수행하기 위한 단위로, 파일 복사, 패키지 설치, 네트워크 장치 구성 등의 작업을 수행할 수 있음
-- 즉, 일련의 명령어를 실행하는 기능의 집합체(ex: copy, yum, apt 등)
+- 즉, 일련의 명령어를 실행하는 기능의 집합체(ex: copy, yum, apt 등) <br />
+![image](https://github.com/NOOJU/intern-project/assets/88716899/6cbf03a8-75bc-4534-a6e0-3f031e685c4c)
+
 
 7. 태스크(Task)
 - Ansible의 작업 단위
