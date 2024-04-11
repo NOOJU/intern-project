@@ -9,13 +9,13 @@ ansible-galaxy를 활용한 arista EOS 모듈을 사용한 playbook으로 스위
 
 ## 1. ansible 서버(관리 노드)에 ansible 설치 및 설정
 * Hypervisor: Pnetlab
-* OS : Ubuntu server 22.04
+* OS : Ubuntu 22.04
 * root 권한으로 진행
-* 실습 환경 : ansible [core 2.16.5], python version = 3.10.12, jinja version = 3.0.3
+* 실습 환경 : ansible = core 2.16.5, python version = 3.10.12, jinja version = 3.0.3
 <br>
 
 1. 네트워크 설정
-   - ansibe과 필요 패키지들을 다운받기 위해 네트워크가 설정되어있어야함
+   - ansible과 필요 패키지들을 다운받기 위해 네트워크가 설정되어있어야함
    ```
    vi /etc/netplan/00-installer-config.yaml
    ```
@@ -49,7 +49,7 @@ ansible-galaxy를 활용한 arista EOS 모듈을 사용한 playbook으로 스위
    ```
    ansible --version
    ```
-   - 버전 확인 : ansible [core 2.16.5], python version = 3.10.12, jinja version = 3.0.3
+   - 버전 확인 : ansible = core 2.16.5, python version = 3.10.12, jinja version = 3.0.3
 
    
 <br>  
@@ -94,7 +94,7 @@ ansible-galaxy를 활용한 arista EOS 모듈을 사용한 playbook으로 스위
    ```
    vi /etc/ansible/hosts
    ```
-   - ansible 노드 설정 파일 수정<br>
+   - ansible 호스트 설정 파일 수정<br>
      
    ```
    [arista_node]
@@ -110,13 +110,12 @@ ansible-galaxy를 활용한 arista EOS 모듈을 사용한 playbook으로 스위
    ![image](https://github.com/NOOJU/intern-project/assets/127095828/ab303f33-a896-4717-ab78-d156af1eee40)
    - 지문 등록을 하지 않아도 핑테스트는 가능!
    - BUT. 플레이북 task는 실행 불가능<br>
-   ```
-   ssh-keygen
-   ```
+
    ```
    ssh-keyscan -t rsa 10.0.1.111 >> ~/.ssh/known_hosts
    ssh-keyscan -t rsa 10.0.2.222 >> ~/.ssh/known_hosts
    ```
+   - 스위치의 공개키를 받아와 known_hosts 파일에 저장
    - ansible 서버의 known_hosts 파일에 스위치의 공개키 지문이 남겨져있어야 플레이북 task 실행 가능<br>
    
 
@@ -134,7 +133,7 @@ ansible-galaxy를 활용한 arista EOS 모듈을 사용한 playbook으로 스위
    gather_facts: no
    tasks:
      - name: Set hostname on the switch
-       eos_config:
+       arista.eos.eos_config:
          lines:
            - hostname test
    ```
@@ -159,7 +158,7 @@ ansible-galaxy를 활용한 arista EOS 모듈을 사용한 playbook으로 스위
      hosts: arista_node
      gather_facts: no
      tasks:
-       - name: create new user
+       - name: Change interface configuration
          arista.eos.eos_config:
            lines:
              - no switchport
