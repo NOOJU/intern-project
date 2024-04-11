@@ -89,6 +89,11 @@ Ansible은 SSH통신으로 각 노드들에게 접근할 수 있어서 에이전
 - 이렇게 수집한 정보를 변수화해서 동적인 playbook을 만들 수 있음
 - 일반적으로 /etc/ansible/facts.d/ 밑에 파일이름.fact 라는 이름으로 저장됨
 -  ansible 호스트명 -m setup을 ad-hoc 방식으로 확인해보면, facts가 수집하는 정보들을 확인할 수 있음
+![image](https://github.com/NOOJU/intern-project/assets/88716899/fc2d9ba7-d68e-423f-b6fe-adce1164d0c1)
+
+![image](https://github.com/NOOJU/intern-project/assets/88716899/88b654ee-7897-4884-8960-fc0f445bf33f)
+
+
 
 ![image](https://github.com/NOOJU/intern-project/assets/88716899/19473efa-a816-449a-ab7b-03ff28634e65)
 
