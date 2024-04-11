@@ -1,4 +1,4 @@
-![image](https://github.com/NOOJU/intern-project/assets/88716899/d3207286-3d7c-45cb-9136-db56ed2ea8c0)# Ansible ![image](https://github.com/NOOJU/intern-project/assets/88716899/6656bda1-19f3-4d6c-9af4-b767134d19a9)
+# Ansible ![image](https://github.com/NOOJU/intern-project/assets/88716899/6656bda1-19f3-4d6c-9af4-b767134d19a9)
 
 
 
