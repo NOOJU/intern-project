@@ -342,3 +342,111 @@ ansible-galaxy를 활용한 arista EOS 모듈을 사용한 playbook으로 스위
    ![image](https://github.com/NOOJU/intern-project/assets/127095828/b02a30b1-c2a1-43b0-a3ee-5bb68ab34ff9)
 
    - running-config가 출력되는 것을 확인
+
+<br/><br/>
+
+
+3. VRF, Vlan, interface 생성 및 설정
+- eos_vrf, eos_vlan등의 모듈을 사용하여 생성하면 속도가 느림
+  → eos_config 모듈이 속도가 가장 빠름
+
+```
+---
+- name: Configure VRFs and VLANs on Arista EOS devices
+  hosts: arista_node
+  gather_facts: no
+  vars:
+    # VRF variables
+    vrf_base_name: "VRF"
+    vrf_base_id: 1
+    vrf_count: 50
+    rd_base: "65000"
+    vrfs: "{{ range(vrf_base_id, vrf_base_id + vrf_count) | map('regex_replace', '^', vrf_base_name) | list }}"
+    rds: "{{ range(vrf_base_id, vrf_base_id + vrf_count) | map('string') | map('regex_replace', '^', rd_base + ':') | list }}"
+
+    # VLAN variables
+    vlan_base_id: 1
+    vlan_count: 50
+    vlans: "{{ range(vlan_base_id, vlan_base_id + vlan_count) | list }}"
+    vlan_descriptions: "{{ range(vlan_base_id, vlan_base_id + vlan_count) | map('regex_replace', '^', 'VLAN_') | list }}"
+
+    # IP variables for interface configuration
+    ip_base_third_octet: 1  # Assuming all interfaces will use 1.1.x.1
+    ips: "{{ range(vlan_base_id, vlan_base_id + vlan_count) | map('regex_replace', '^', '1.1.') | map('regex_replace', '$', '.1/24') | list }}"
+
+  tasks:
+    - name: Configure VRFs 
+      arista.eos.eos_config:
+        lines:
+          - "vrf instance {{ item.0 }}"
+          - "rd {{ item.1 }}"
+          - "description Description for {{ item.0 }}"
+        parents: "vrf instance {{ item.0 }}"
+        match: exact
+      loop: "{{ vrfs | zip(rds) | list }}"
+
+    - name: Configure VLANs 
+      arista.eos.eos_config:
+        lines:
+          - "vlan {{ item.0 }}"
+          - "name {{ item.1 }}"
+        parents: ["vlan {{ item.0 }}"]
+        match: exact
+      loop: "{{ vlans | zip(vlan_descriptions) | list }}"
+
+    - name: Configure interfaces with VLANs and assign to VRFs
+      arista.eos.eos_config:
+        lines:
+          - "interface vlan {{ item.0 }}"
+          - "vrf {{ item.1 }}"
+          - "ip address {{ item.2 }}"
+        parents: ["interface vlan {{ item.0 }}"]
+        match: exact
+      loop: "{{ vlans | zip(vrfs, ips) | list }}"
+```
+
+<br/><br/>
+
+
+4. 생성한 리소스 및 설정 삭제
+```
+---
+- name: Remove VRFs and VLANs on Arista EOS devices
+  hosts: arista_node
+  gather_facts: no
+  vars:
+    # VRF variables
+    vrf_base_name: "VRF"
+    vrf_base_id: 1
+    vrf_count: 50
+    vrfs: "{{ range(vrf_base_id, vrf_base_id + vrf_count) | map('regex_replace', '^', vrf_base_name) | list }}"
+
+    # VLAN variables
+    vlan_base_id: 1
+    vlan_count: 50
+    vlans: "{{ range(vlan_base_id, vlan_base_id + vlan_count) | list }}"
+
+  tasks:
+    - name: Remove VRFs 
+      arista.eos.eos_config:
+        lines:
+          - "no vrf instance {{ item }}"
+        match: exact
+      loop: "{{ vrfs | list }}"
+
+    - name: Remove VLANs
+      arista.eos.eos_config:
+        lines:
+          - "no vlan {{ item }}"
+        match: exact
+      loop: "{{ vlans | list }}"
+
+    - name: Remove interfaces
+      arista.eos.eos_config:
+        lines:
+          - "no interface vlan{{ item }}"
+        match: exact
+      loop: "{{ vlans | list }}"
+```
+   
+   
