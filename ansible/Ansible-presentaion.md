@@ -97,9 +97,15 @@ ansible-galaxy를 활용한 arista EOS 모듈을 사용한 playbook으로 스위
    - ansible 호스트 설정 파일 수정<br>
      
    ```
+   [arista_node:vars]
+   ansible_connection=network_cli
+   ansible_network_os=eos
+   ansible_user=admin
+   ansible_ssh_pass=admin
+
    [arista_node]
-   10.0.1.111 ansible_connection=network_cli ansible_network_os=eos ansible_user=admin ansible_ssh_pass=admin ansible_become=yes ansible_become_method=enable
-   10.0.2.222 ansible_connection=network_cli ansible_network_os=eos ansible_user=admin ansible_ssh_pass=admin ansible_become=yes ansible_become_method=enable
+   10.0.1.111
+   10.0.2.222
    ```
    <br>
    
