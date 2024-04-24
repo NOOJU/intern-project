@@ -173,7 +173,7 @@ ansible-galaxy를 활용한 arista EOS 모듈을 사용한 playbook으로 스위
    ```
    - 붙여넣기<br>
    ```
-   ansible-playbook name-test.yml
+   ansible-playbook interface-test.yml
    ```
    ![image](https://github.com/NOOJU/intern-project/assets/127095828/d2a43cd7-8001-49dc-aee1-6f1277101011)
 
